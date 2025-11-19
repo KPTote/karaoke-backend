@@ -1,28 +1,23 @@
 import express, { Router } from 'express';
 
-export class Server{
+export class Server {
 
-    private app = express();
+    public app = express();
     private readonly port: number;
-    private readonly routes: Router;
 
-    constructor(port: number, routes: Router){
+    constructor(port: number) {
         this.port = port;
-        this.routes = routes;
+        this.configure();
     };
 
-    async start(){
-
+    private configure() {
         //Middlewares
         this.app.use(express.json());
+    }
+
+    public setRoutes(routes: Router){
+        this.app.use(routes);
+    }
 
 
-        //Routes
-        this.app.use(this.routes);
-
-        this.app.listen(this.port, () => {
-            console.log(`Server running on port: ${this.port}`);
-        });
-        console.log('server is running');
-    };
 };

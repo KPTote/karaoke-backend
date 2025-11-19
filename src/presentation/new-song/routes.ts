@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { NewSongService } from "../services/new-song.service";
 import { NewSongController } from "./controller";
 
 export class NewSongRoutes {
@@ -8,9 +7,10 @@ export class NewSongRoutes {
 
         const router = Router();
 
-        const newSongService = new NewSongService();
-        const newSongController = new NewSongController(newSongService);
+        const newSongController = new NewSongController();
+
         router.post('/add-song', newSongController.addSong)
+        router.get('/last', newSongController.lastNumber)
 
         return router;
 
