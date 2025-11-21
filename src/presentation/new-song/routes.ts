@@ -10,7 +10,8 @@ export class NewSongRoutes {
         const newSongController = new NewSongController();
 
         router.post('/add-song', newSongController.addSong)
-        router.get('/last', newSongController.lastNumber)
+        router.get('/get-song-count', newSongController.getSongCount)
+        router.get('/playlist', newSongController.getAllSongs)
 
         return router;
 
