@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { AuthRoutes } from "./auth/routes";
 import { NewSongRoutes } from "./new-song/routes";
 
 export class AppRoutes {
@@ -6,7 +7,8 @@ export class AppRoutes {
     static get routes(): Router {
 
         const router = Router();
-        router.use('/api', NewSongRoutes.routes)
+        router.use('/api', NewSongRoutes.routes);
+        router.use('/api/auth', AuthRoutes.routes);
         return router;
 
     };
