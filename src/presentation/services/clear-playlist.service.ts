@@ -9,7 +9,6 @@ export class ClearPlaylistService {
 
         try {
             const songs = await ClearPlaylistRepository.getAllWithID()
-            console.log(songs);
 
             if(!songs){
                 throw new Error('Error al obtener el listado de canciones actual.')

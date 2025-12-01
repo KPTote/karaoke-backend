@@ -26,7 +26,7 @@ function main() {
     serverApp.setRoutes(AppRoutes.routes);
 
     httpServer.listen(envs.PORT, () => {
-        console.log(`Server running on port: ${envs.PORT} ggg`);
+        console.log(`Server running on port: ${envs.PORT}`);
     })
     
 };
