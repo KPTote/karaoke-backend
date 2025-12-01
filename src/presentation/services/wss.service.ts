@@ -1,30 +1,30 @@
 import { Server } from 'http';
 import { WebSocket, WebSocketServer } from 'ws';
 
-interface Options{
+interface Options {
 
-    server:Server;
-    path?:string;   //el path al que quiero conectar mi websocket server
+    server: Server;
+    path?: string;   //el path al que quiero conectar mi websocket server
 
 }
 
-export class WssService{
+export class WssService {
 
-    private static _instance:WssService;
-    private wss:WebSocketServer;
+    private static _instance: WssService;
+    private wss: WebSocketServer;
 
-    private constructor(options:Options){
+    private constructor(options: Options) {
 
-        const {server,path='/ws'}=options;
+        const { server, path = '/ws' } = options;
 
-        this.wss=new WebSocketServer({server,path});
+        this.wss = new WebSocketServer({ server, path });
         this.start();
-        
+
     }
 
-    static get instance():WssService{
+    static get instance(): WssService {
 
-        if(!WssService._instance){
+        if (!WssService._instance) {
             throw 'WssService is not initialized';
         }
 
@@ -32,27 +32,27 @@ export class WssService{
 
     }
 
-    static initWss(options:Options){
+    static initWss(options: Options) {
 
-        WssService._instance=new WssService(options);
+        WssService._instance = new WssService(options);
 
     }
 
-    public start(){
-        this.wss.on('connection',(ws:WebSocket)=>{
+    public start() {
+        this.wss.on('connection', (ws: WebSocket) => {
 
             console.log('Client connected');
 
-            ws.on('close',()=>console.log('Client disconnected'));
+            ws.on('close', () => console.log('Client disconnected'));
 
         });
     }
 
-        public sendMessage(type: string, payload: Object){
-        this.wss.clients.forEach( client => {
+    public sendMessage(type: string, payload: Object) {
+        this.wss.clients.forEach(client => {
 
-            if(client.readyState === WebSocket.OPEN){
-                client.send(JSON.stringify({type, payload}));
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({ type, payload }));
             };
 
         });
