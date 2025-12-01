@@ -15,7 +15,12 @@ export class ClearPlaylistService {
                 throw new Error('Error al obtener el listado de canciones actual.')
             } 
 
-            return await ClearPlaylistRepository.clear(songs)
+            const clearPlaylist = await ClearPlaylistRepository.clear(songs);
+
+            return {
+                message: 'Lista eliminada',
+                clearPlaylist
+            }
 
         } catch (error) {
             throw CustomError.badRequest(`${error}`)

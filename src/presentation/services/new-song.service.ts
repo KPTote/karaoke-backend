@@ -8,13 +8,23 @@ export class NewSongService {
 
     public async addSong(newSongDto: NewSongFormDto) {
 
-        const song = await NewSongRepository.addSong(newSongDto, this.getDateTime());
+        try {
+            const song = await NewSongRepository.addSong(newSongDto, this.getDateTime());
 
-        if (!song) {
-            throw new Error('Error en el repositorio, desde servicio')
+            if (!song) {
+                throw new Error('Error en el repositorio, desde servicio')
+            }
+
+            return {
+                message: 'success',
+                song: newSongDto.songName,
+                user: newSongDto.userName,
+                numberOnList: newSongDto.numberOnList
+            };
+        } catch (error) {
+            throw CustomError.internalServer(`${error}`);
+
         }
-
-        return song;
 
     };
 
